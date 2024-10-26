@@ -1,0 +1,129 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <locale.h>
+#include <stdio.h>
+#include <math.h>
+
+double f(double a, int n, double E,  int x)
+{
+	double k; 
+	double p;
+	int l = 0;
+	printf("\nx                 f          delta      n \n"); // <-- таблица. 1) это значение аргумента 2)значение функции 3) изменение функции 4) кол-во прогонов цикла
+	do {
+
+		k = (((n - 1) * a + (x / pow(a, n - 1)))) / n;
+		p = a; // a i
+		a = k; // a i+1
+		l += 1;
+		printf("%-12lf %-12.10lf %-12.10lf %-12d \n", p, k, fabs(a - p), l);
+	} while (fabs(a - p) > E);
+	
+	
+	return k;
+}
+
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+
+
+	while (true)
+	{
+		double a, k;
+		int i, b, c;
+
+		//задаем натуральное число
+		int x;
+		while (true)
+		{
+			printf("x = ");
+			scanf("%d", &x);
+			if (x > 0)
+			{
+				break;
+			}
+			else
+			{
+				printf("некорретный х \n");
+			}
+		}
+		
+		
+		//задаем степень
+		int n;
+		while (true)
+		{
+			printf("n-ая степень = ");
+			scanf("%d", &n);
+			if (n > 0)
+			{
+				break;
+			}
+			else
+			{
+				printf("некорретный n \n");
+			}
+		}
+
+		//задаем точность
+		double E;
+		int e;
+		while (true)
+		{
+			printf("eps = ");
+			
+			scanf("%d", &e);
+			
+			if (e > 0)
+			{
+				break;
+			}
+			else
+			{
+				printf("некорретный eps \n");
+				
+			}
+		}
+		E = pow(10, -e);
+
+		//находим первое число
+		for (i = 1; i < x; i++)
+		{
+			int z = pow(i, n);
+			if (z < x)
+			{
+				b = i;
+
+			}
+		}
+
+		//находим второе число
+		for (i = 1; i < x; i++)
+		{
+			int z = pow(i, n);
+			if (z > x)
+			{
+				c = i;
+				break;
+			}
+		}
+
+		//вычисляем а0
+		a = double(b + c) / 2;
+
+
+
+		//вычисляем корень
+		k = f(a, n, E, x);
+
+
+
+
+
+		printf("\nk = %.16lf", k);
+		printf("\n \n");
+	}
+	return 0;
+}
